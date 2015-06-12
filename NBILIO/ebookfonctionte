@@ -1,0 +1,209 @@
+<?php
+
+public function Ebook() //Fonction qui sert à trier les livres.
+		{
+			if(isset($_GET['page']))
+			{
+				$this->PageTri=$_GET['page'];
+			}
+			else
+			{
+				$this->PageTri=0;
+			}
+
+			switch($this->PageTri) 
+			{
+				case 'Genre' : 
+					$this->Connection();
+					$TriGenre=$this->ConnectionString->query("Select * from AuteurEBookGenre GROUP BY IDGenre ; ") ;
+					$i=0;
+					$j=0;
+					while($Afficher=$TriGenre->fetch())
+					{
+						echo "<div class='MasterListGenre' id='MasterListeGenre".$i."' style='''background-image:url(".$Afficher['IDGenre'].".jpg)'>" .strtoupper($Afficher['IDGenre']);
+						$TriLivre=$this->ConnectionString->query("Select * from AuteurEBookGenre where
+								IDGenre='".$Afficher['IDGenre']."'; ") ;
+						echo "</div><div class='SMasterListGenre' id='SMasterListGenre".$i."'>" ;
+						while($AfficherSousListe=$TriLivre->fetch())
+						{
+							echo "<div id='DivGenreListLivre".$i."&".$j."' class='CDivGenreListLivre'><p class='GenreListLivre'><a href='PageEbook.php?page=Exemp?".$AfficherSousListe['IDLivre']."'>" .mb_strtoupper($AfficherSousListe['TitreLivre'], 'utf8'). 
+								"<br/>" .strtoupper($AfficherSousListe['PrenomAuteur']). " " .strtoupper($AfficherSousListe['NomAuteur']). "</a></p><p class='ImgGenreListLivre'><img src='".$AfficherSousListe['CouvertureLivre']."' class='ImgGenreListLivrepng' height='70%'/></p></div>" ;
+
+
+								echo
+								"
+								<script type='text/javascript'>
+								var img".$i."a".$j."= document.createElement('img') ;
+								img".$i."a".$j.".onload = function(){
+									var colorThief = new ColorThief();
+									var color = colorThief.getColor(img".$i."a".$j.");
+									document.getElementById('DivGenreListLivre".$i."&".$j."').style.background = 'rgb(' + color + ')';
+								};
+									img".$i."a".$j.".src= '".$AfficherSousListe['CouvertureLivre']."' ;
+								</script>" ;
+
+								$j++;
+						}
+						echo "</div>";
+						$i++; 
+					}break;
+				case 'Auteur' : 
+					$this->Connection();
+					$TriAuteur=$this->ConnectionString->query("Select * from AuteurEBookGenre group by IDAuteur;");
+					$i=0;
+					while($Afficher=$TriAuteur->fetch())
+					{
+						echo "<div class='MasterListAuteur' id='MasterListAuteur".$i."'><p><a href='PageEbook.php?page=Auteur?".$Afficher['PrenomAuteur']. "
+									?" .$Afficher['NomAuteur']. "?".$Afficher['IdAuteur']."'>".strtoupper($Afficher['PrenomAuteur']). "
+									 " .strtoupper($Afficher['NomAuteur']). "</a><img src='".$Afficher['AuteurPhoto']."' height='100%'/></p>" ;
+						echo "</div>								
+								<script type='text/javascript'>
+								var img".$i."= document.createElement('img') ;
+								img".$i.".onload = function(){
+									var colorThief = new ColorThief();
+									var color = colorThief.getColor(img".$i.");
+									document.getElementById('MasterListAuteur".$i."').style.background = 'rgb(' + color + ')';
+								};
+									img".$i.".src= '".$Afficher['AuteurPhoto']."' ;
+								</script>" ;
+								$i++;
+					}break;
+				case 'Pays' :
+					$this->Connection();
+					$TriPays=$this->ConnectionString->query("Select * from AuteurLivreGenre group by IDPays ;") ;
+					while($Afficher=$TriPays->fetch())
+					{
+						echo "<ul class='MasterListPays'>" .$Afficher['IDPays'] ;
+						$TriLivre=$this->ConnectionString->query("Select * from AuteurLivreGenre where 
+							IDPays='".$Afficher['IDPays']."' ; ");
+						while($AfficherSousListe=$TriLivre->fetch())
+						{
+							echo "<li class='PaysListLivre'>" .$AfficherSousListe['TitreLivre'].
+								"<br/> Auteur : " .$AfficherSousListe['PrenomAuteur']. " " .$AfficherSousListe['NomAuteur']. "</li>" ; 
+						}
+						echo "</ul>" ;
+					}break;
+				case $this->PageTri :
+					$this->Connection();
+					$Seperator=explode("?", $this->PageTri) ;				
+					if($Seperator[0]=='Exemp')
+					{
+						$LivreExemplaire=$this->ConnectionString->query("Select * from EbookExemplaire where IDLivre='".$Seperator[1]."' 
+							Group by TitreLivre ; )") ;						
+						
+						while($Afficher=$LivreExemplaire->fetch())
+						{
+
+							echo "<div class='UniqueLivre'> 
+									<div class='UniqueLivrePres'>
+										<img class='UniqueLivreImg' src='".$Afficher['CouvertureLivre']."' height='50%' width='auto'>
+									</div>
+									<div class='UniqueLivreDetails'>	
+										<h1 class='UniqueLivreTitle'>".$Afficher['TitreLivre']. "</h1>
+											<a href='".$Afficher['CheminEbook']."'</a>
+										</p>
+										<p class='UniqueLivreDesc'>" .$Afficher['ResumeLivre']."</p><br>
+									</div>
+								</div>" ;
+
+							if(isset($_POST['ReserverExemp']) && $Reserver!='0')
+							{
+								$mysqli = new mysqli("localhost","root","","BDDBibliotheque");
+								$insert_row = $mysqli->query("INSERT INTO RETOUREMPRUNT 
+									(IdLivre, IdExemplaire, IdAdherent, IDEmprunt, DateEmprunt, DateRetourPrevu, DateRetour) 
+										VALUES('".$Seperator[1]."', '".$Reserver."', '".$_SESSION['id']."', 
+											'', null, null, null) ;");
+								if($insert_row)
+								{
+								    print 'Exemplaire N°'.$Reserver.' réservé.';
+								    header("Refresh:0");
+								}
+								else
+								{
+								    echo "Limite d'emprunts simultanés déjà atteinte !";
+								}
+							}
+						}
+					}
+					if($Seperator[0]=='Auteur')
+					{
+						echo "<script type='text/javascript' src='Js/AnimationAuteur.js'></script>";
+						$Seperator=explode("?", $this->PageTri) ;
+						$AuteurSlideShow=$this->ConnectionString->query("Select * from EbookExemplaire where IDAuteur='".$Seperator[3]."' group by TitreLivre order by TitreLivre; ") ;
+						$AuteurResumeLivre=$this->ConnectionString->query("Select * from EbookExemplaire where IDAuteur='".$Seperator[3]."' group by TitreLivre order by TitreLivre; ") ;
+						$AuteurPresentation=$this->ConnectionString->query("Select * from Auteurs where IDAuteur='".$Seperator[3]."' ;") ;
+						echo "	<img src='Images/WhiteArrowL.png' class='Left' height='8%'' width='auto'>
+								<img src='Images/WhiteArrowR.png' class='Right' height='8%' width='auto'>
+								<div class='AuteurSlideShow'>" ;
+						$i = 0;
+						while ($Afficher=$AuteurSlideShow->fetch()) 
+						{
+							echo "
+							<img class='ImagePresentation' src='".$Afficher['CouvertureLivre']."' height='80%' width=auto ID='SlideShow".$i."'> ";
+							$i++;
+						}
+						$this->CompteurSlideShow=$i ;
+						echo "	</div>
+								<div id='ToggleResume'><input id='ToggleResumeButton' type='submit' value='Test'></div>
+								<div id='AuteurResume'>" ;
+
+						$r=0;
+						while($Afficher=$AuteurResumeLivre->fetch())
+						{
+							echo "	
+									<p class='ClassResumeLivre' id='ResumeLivre".$r."'>".$Afficher['TitreLivre']."<br><br>".$Afficher['ResumeLivre']. "<br><br><a href='PageEbook.php?page=Exemp?".$Afficher['IDLivre']."'> Réserver le livre. </a></p>";
+
+							$r++;
+						}
+
+						echo "	</div>
+								<div class='AuteurPresentation'>" ;
+						while($Afficher=$AuteurPresentation->fetch())
+						{
+							echo "	<h1 id='AuteurPresentationTitle'>".$Afficher['PrenomAuteur']. " " .$Afficher['NomAuteur']. "</h1> <img id='AuteurPresentationPortrait' src='".$Afficher['AuteurPhoto']."'>
+									<p id='AuteurPresentationBio'>" .$Afficher['Biographie']. "</p>
+									</div>";
+						}
+
+					}break;
+			}
+
+			if(isset($_POST['SearchLivreButton']))
+			{
+				if($_POST['SearchBy']=='Nom' && $_POST['SearchLivre']!='')
+				{
+					$this->SearchLivre=$_POST['SearchLivre'] ; 
+					$StringSearch=explode(" ", $this->SearchLivre) ;
+					$this->Connection();
+					$SearchLivreQuery=$this->ConnectionString->query("Select * from AuteurLivreGenre where 
+						PrenomAuteur LIKE '%".$StringSearch[0]."%' 
+						OR NomAuteur LIKE '%".$StringSearch[0]."%' GROUP BY IDAuteur ");
+					echo "Resultats : " ;
+					while($Afficher=$SearchLivreQuery->fetch())
+					{
+						echo "<br/><br/><br/><br/> <a href='PageEbook.php?page=Auteur?".$Afficher['PrenomAuteur']."?".$Afficher['NomAuteur']."?".$Afficher['IDAuteur']."'>" 
+							.$Afficher['PrenomAuteur']. " " .$Afficher['NomAuteur']. "</a>" ;
+					}
+				}
+				elseif($_POST['SearchBy']=='Livre' && $_POST['SearchLivre']!='')
+				{
+					$this->Connection();
+					$this->SearchLivre=$_POST['SearchLivre'] ;
+					$StringSearch=explode(" ", $this->SearchLivre) ;
+					$SearchLivreQuery=$this->ConnectionString->query("Select * from AuteurLivreGenre where
+						TitreLivre Like '%".$StringSearch[0]."%' ;");
+					echo "Resultats : " ;
+					while($Afficher=$SearchLivreQuery->fetch())
+					{
+						echo "<br><br><br><br> <a href='PageEbook.php?page=Exemp?".$Afficher['IDLivre']."'>" .$Afficher['TitreLivre']. 
+									"<br/> Auteur : " .$Afficher['PrenomAuteur']. " " .$Afficher['NomAuteur']. "<br>" ;
+					}
+				}
+			}
+			else
+			{
+				// Ajouter Message Erreur.
+			}
+		}
+
+?>

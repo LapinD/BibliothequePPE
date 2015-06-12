@@ -1,0 +1,562 @@
+html
+{
+	font-family: 'Open Sans', sans-serif;
+	color :#f5f4f5;
+	background-color: #3a393a;
+	font-weight: 200;
+	width: 100%;
+	height: 100%;
+	
+}
+
+a
+{
+	text-decoration: none;
+	color : #f5f4f5
+}
+
+.DLUniqueLivreEb
+{
+	text-decoration: bold;
+	color: black;
+	margin-left: 50px;
+	text-decoration: bold; 
+}
+
+.DLUniqueLivreAut
+{
+	text-decoration: bold;
+	color: black;
+	margin-left: 10px;
+}
+
+#fixedBG
+{
+	position: fixed;
+	left : 0 ;
+}
+
+#titleFixedBG
+{
+	position: absolute;
+	font-size: 4em;
+	font-family: 'Open Sans', sans-serif;
+	z-index: 2;
+	margin-left: 50%;
+	margin-top: 10%;
+	background-color:rgba(0, 0, 0, 0.7) ;
+}
+
+#BlogReco
+{
+	position: absolute;
+	width: 100%;
+	left : 0;
+	background-color: #3a393a;
+	margin-top: 40%;
+	z-index: 3;
+}
+
+.TitreArticle
+{
+	margin-left : 50px;
+}
+
+.ContenuArticle
+{
+	position: relative;
+	margin-right: 250px;
+	text-align: justify;
+	margin-left: 50px;
+}
+
+.LienArticle
+{
+	margin-left: 50px;
+}
+
+.PNGArticle
+{
+	position : absolute ;
+	width: 15%;
+	height: auto;
+	right: 30px;
+}
+
+#DivNavigation
+{
+	position: absolute;
+	top: 0;
+	margin-left: -8px;
+	width: 100%;
+	height: 80px;
+	background: black;
+	box-shadow: 1px 1px 10px black;
+	z-index: 999;
+}
+
+#ListeNavigation
+{
+	position : absolute;
+	left : -10px;
+}
+
+#LiLogo
+{
+	display: inline-block;
+}
+
+#LogoBiblio
+{
+	height :70%; 
+	width : auto ;
+}
+
+.NavBar
+{
+  font-family: 'Open Sans', sans-serif; 
+  font-weight: thin;
+  color : #b2b2b2;
+  display: inline-block;
+  position: relative;
+  background: black ;
+  padding: 7px 20px;
+  top : -20;
+  margin-left: -7px;
+  transition : color 1s;
+}
+
+#ConnexionPopUp
+{
+	position: absolute;
+	display: none;
+	top : 20%;
+	left: 50%;
+	margin-left: -125px;
+	z-index: 999;
+	height: 115px;
+	width: 250px;
+	background: white ;
+	border-radius: 5px;
+	box-shadow: 1px 1px 10px black;
+}
+
+#DeconnexionButton
+{
+	background:none!important;
+    border:none; 
+    padding:0!important;
+    /*border is optional*/
+    cursor: pointer;
+	color : #ff6961;
+}
+
+.ConnexionPopUpFormLi
+{
+	position: relative;
+	margin-top : 10px;
+	margin-left: 15%;
+}
+
+#SearchLivre
+{
+	padding: 0px 20px;
+	height: 0px;
+}
+
+#SearchLivreButton
+{
+	margin-left: -6px;
+}
+
+.SousListe
+{
+	display : none;
+	color : #b2b2b2;
+	position : absolute;
+	list-style: none;
+	float : left ;
+	padding : 7px 20px;
+	width : 150px;
+	background: black ;
+	transition : color 1s;
+	left : 0px;
+}
+
+#MainAccueil:hover
+{
+	color : white;
+}
+
+#MainPerso:hover
+{
+	color : #ff6961;
+}
+
+#MainReco:hover
+{
+	color : #db5e8d;
+}
+
+#MainLivre:hover
+{
+	color: #18a370;
+}
+
+#MainEBook:hover
+{
+	color : #168bc4;
+}
+
+#MainPerso:hover > #SousListePerso, .LiSPerso
+{
+	display : block;
+	color : #ff6961;
+	box-shadow: 1px 1px 10px black;
+	border-radius: 15px;
+}
+
+#MainReco:hover > #SousListeReco, .LiSReco
+{
+	display : block;
+	color : #db5e8d;
+	box-shadow: 1px 1px 10px black;
+	border-radius: 15px;
+}
+
+#MainLivre:hover > #SousListeLivre, .LiSLivre
+{
+	display : block;
+	color: #18a370;
+	box-shadow: 1px 1px 10px black;
+	border-radius: 15px;
+}
+
+#MainEbook:hover > #SousListeEbook, .LiSEbook
+{
+	display : block;
+	color: #168bc4;
+	box-shadow: 1px 1px 10px black;
+	border-radius: 15px;
+}
+
+.MasterListGenre, .MasterListPays
+{
+	font-family: 'Open Sans', sans-serif; 
+  	font-weight: thin;
+	color : #f5f4f5;
+	list-style: none;
+	width: 100%;
+	position: relative;
+	height: 40%;
+	font-size: 500%;
+	padding-top: 60px;
+	top : 80px;
+	background-size: 100%;
+	background: black;
+}
+
+.SMasterListGenre
+{
+	position: relative;
+	display: none;
+	bottom: -80px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.CDivGenreListLivre
+{
+	position: relative;
+	background: black;
+	height: 240px;
+	width: 100%;
+	margin-bottom: -9px;
+  	margin-top: -58px;
+}
+
+.GenreListLivre
+{
+	background-color:rgba(0, 0, 0, 0.7) ;
+	font-size: 3.54vw;
+	width: 50%;
+	height: 200px;
+}
+
+.ImgGenreListLivrepng
+{
+	position: absolute;
+	top : 0;
+	height: 100%;
+	right: 50px;
+}
+
+.MasterListAuteur
+{
+	position: relative;
+	font-family: 'Open Sans', sans-serif; 
+  	font-weight: thin;
+	color : #f5f4f5;
+	list-style: none;
+	width: 100%;
+	position: relative;
+	height: 40%;
+	background: black;
+	font-size: 500%;
+	padding-bottom: 120px;
+	padding-top: 10px;
+	top : 80px;
+}
+
+.MasterListAuteurImg
+{
+	position: absolute;
+	right: 50px;
+	top : 0;
+}
+
+.GenreListLivre, .PaysListLivre, .AuteurListLivre
+{
+}
+
+#Inscription
+{
+	position: absolute;
+	width: 100%;
+	height: 100;
+	top : 80px;
+	left: 0;
+}
+
+.FormulaireInscription
+{
+	position: relative;
+	top : 120px;
+	margin-left: 450px;
+}
+
+.FormulaireDesInscription
+{
+	position: relative;
+	top : 120px;
+	margin-left: 450px;
+}
+
+.FormulaireReInscription
+{
+	position: relative;
+	top : 120px;
+	margin-left: 450px;
+}
+
+
+.ReponseInscription,.ErrorMailValide,.ErrorPseudo,.ErrorChoixMail{
+	padding-top : 300px;
+	text-align : center;
+}
+
+#Tri
+{
+	position: absolute;
+	width: 100%;
+	height: 50%;
+	top : 0px;
+	left :0;
+}
+
+.AuteurSlideshow
+{
+	position: relative;
+	width : 100%;
+	height: 100% ;
+	top : 80px;
+	left: 0;
+	background-image: url('Images/library.jpg');
+	z-index: -1;
+}
+
+#AuteurResume
+{
+	display: none;
+	position: relative;
+	top : 30px;
+	width : 100%;
+	background: white;
+}
+
+#ToggleResume
+{
+	position: relative;
+	top : 46px;
+	width: 100%;
+	height: 29px;
+	background: #0087a5;
+	border-top: 1px solid #004453;
+	border-bottom: 1px solid #004453;
+	border-radius: 0 0 2px 2px;
+}
+
+#ToggleResumeButton
+{
+	position: absolute;
+	height: 29px;
+	right: 100px;
+	outline: none;
+	border: none;
+	color: white;
+	font-family: 'Open-Sans', sans-serif;
+	background: #004453;
+}
+
+.ClassResumeLivre
+{
+	display: none;
+	position: relative;
+	top : 0px;
+	color: black;
+	margin-left: 10px;
+	margin-right: 30px;
+	text-align: justify;
+}
+
+.Left
+{
+	position: absolute;
+	left : 0px ;
+	top : 150px;
+	z-index: 999;
+}
+
+.Right
+{
+	position : absolute;
+	right: 0px;
+	top : 150px;
+	z-index: 999;
+}
+
+.ImagePresentation
+{
+	/*-webkit-box-reflect: below -1px 
+  	-webkit-gradient(linear, left top, left bottom, from(transparent),
+  	color-stop(74%, transparent) , to(rgba(250, 250, 250, 0.5)));*/
+  	position: absolute;
+  	transition : height 0.5s;
+  	bottom:20%;
+}
+
+.AuteurPresentation
+{
+	top : 27px;
+	position: relative;
+	margin-top : 0px;
+	width : 100%;
+	background: white;
+	height: 100%;
+}
+
+#AuteurPresentationTitle
+{
+	margin-left: 10px;
+	color : black ;
+}
+
+#AuteurPresentationBio
+{
+	margin-left: 10px;
+	text-align: justify;
+	width: 50%;
+	color : black ;
+	font-family: 'Open Sans', sans-serif;
+}
+
+#AuteurPresentationPortrait
+{
+	position: absolute;
+	top : 0;
+	right : 0px;
+	box-shadow: 1px 1px 20px black;
+	height: 100%;
+	max-width: 50%;
+}
+
+.UniqueLivre
+{
+	margin-top : 80px;
+	background-image: url('Images/library.jpg');
+	width: 100%;
+	height: auto;
+}
+
+.UniqueLivreDetails
+{
+	background: white;
+	margin-top: 75px;
+	min-height: 100%;
+}
+
+.UniqueLivrePres
+{
+
+}
+
+.UniqueLivreTitle
+{
+	color: black;
+	margin-left: 50px;
+}
+
+.UniqueLivreDesc
+{
+	margin-left: 50px;	
+	color : black;
+}
+
+.UniqueLivreButton
+{
+	margin-left: 50px;
+}
+
+.UniqueLivreImg
+{
+	margin-top: 20px;
+	height: 70%;
+	margin-left: 50%;
+	transform: translate(-50%);
+	-webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(70%, transparent) , to(rgba(250, 250, 250, 0.5)));
+}
+
+/*COMPTE CLIENT*/
+
+#CompteClient
+{
+	position: absolute;
+	top : 80px;
+}
+
+#IM1
+{
+  background-image: url("../BiblioPPE/Images/ImageBiblio.jpg");
+  background-repeat:no-repeat;
+  width: 196px;
+  height: 180px;
+  float: left;
+}  
+
+#IM3
+{
+  background-image: url("../BiblioPPE/Images/ImageBiblio3.jpg");
+  background-repeat: no-repeat;
+  width: 210px;
+  height: 182px;
+  float: right;
+}  
+
+#IM2
+{
+  background-image: url("../BiblioPPE/Images/ImageBiblio2.jpg");
+  background-repeat: no-repeat;
+  display: block;
+  margin-left: auto; 
+  margin-right: auto;
+}
